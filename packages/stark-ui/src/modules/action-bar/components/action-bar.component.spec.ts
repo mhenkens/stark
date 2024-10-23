@@ -1,18 +1,23 @@
-/* eslint-disable @angular-eslint/component-max-inline-declarations */
-import { Component, ViewChild } from "@angular/core";
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+	StarkActionBarComponent,
+	StarkActionBarComponentMode
+} from "@nationalbankbelgium/stark-ui/src/modules/action-bar/components/action-bar.component";
 import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";
 import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { STARK_LOGGING_SERVICE } from "@nationalbankbelgium/stark-core";
 import { MockStarkLoggingService } from "@nationalbankbelgium/stark-core/testing";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { StarkActionBarComponent, StarkActionBarComponentMode } from "./action-bar.component";
-import { StarkAction } from "./action.intf";
-import { StarkActionBarConfig } from "./action-bar-config.intf";
+import { Component, ViewChild } from "@angular/core";
+import { StarkActionBarConfig } from "@nationalbankbelgium/stark-ui/src/modules/action-bar/components/action-bar-config.intf";
+import { StarkAction } from "@nationalbankbelgium/stark-ui/src/modules/action-bar/components/action.intf";
+import { HarnessLoader } from "@angular/cdk/testing";
 import createSpy = jasmine.createSpy;
+import { MatButtonHarness } from "@angular/material/button/testing";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
 
 describe("ActionBarComponent", () => {
 	@Component({
@@ -36,23 +41,21 @@ describe("ActionBarComponent", () => {
 		public alternativeActions?: StarkAction[];
 	}
 
-	// IMPORTANT: The official way to test components using ChangeDetectionStrategy.OnPush is to wrap it with a test host component
-	// see https://github.com/angular/angular/issues/12313#issuecomment-444623173
 	let hostFixture: ComponentFixture<TestHostComponent>;
 	let hostComponent: TestHostComponent;
 	let component: StarkActionBarComponent;
-	const buttonToggleSelector = ".extend-action-bar";
+	let loader: HarnessLoader;
 
-	beforeEach(waitForAsync(() =>
-		TestBed.configureTestingModule({
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
 			declarations: [StarkActionBarComponent, TestHostComponent],
 			imports: [MatButtonModule, MatIconModule, MatIconTestingModule, MatMenuModule, MatTooltipModule, TranslateModule.forRoot()],
 			providers: [{ provide: STARK_LOGGING_SERVICE, useValue: new MockStarkLoggingService() }, TranslateService]
-		}).compileComponents()));
+		}).compileComponents();
 
-	beforeEach(() => {
 		hostFixture = TestBed.createComponent(TestHostComponent);
 		hostComponent = hostFixture.componentInstance;
+
 		const demoActions: StarkAction[] = [
 			{
 				id: "userDetailValidate",
@@ -78,23 +81,27 @@ describe("ActionBarComponent", () => {
 		};
 		hostFixture.detectChanges();
 		component = hostComponent.starkActionBar;
+
+		loader = TestbedHarnessEnvironment.loader(hostFixture);
 	});
 
 	describe("@Input() mode", () => {
-		it("should have the toggle action bar button visible in full mode", () => {
+		it("should have the toggle action bar button visible in full mode", async () => {
 			hostComponent.mode = "full";
 			hostFixture.detectChanges();
 
-			const buttonToggleExtend: HTMLElement = hostFixture.nativeElement.querySelector(buttonToggleSelector);
-			expect(buttonToggleExtend).toBeDefined();
+			const extendActionBarButton = await loader.getHarnessOrNull(MatButtonHarness.with({ selector: ".extend-action-bar" }));
+
+			expect(extendActionBarButton).toBeDefined();
 		});
 
-		it("should not have the toggle action bar button visible in compact mode", () => {
+		it("should not have the toggle action bar button visible in compact mode", async () => {
 			hostComponent.mode = "compact";
 			hostFixture.detectChanges();
 
-			const buttonToggleExtend: HTMLElement = hostFixture.nativeElement.querySelector(buttonToggleSelector);
-			expect(buttonToggleExtend).toBeNull();
+			const extendActionBarButton = await loader.getHarnessOrNull(MatButtonHarness.with({ selector: ".extend-action-bar" }));
+
+			expect(extendActionBarButton).toBeNull();
 		});
 	});
 
@@ -109,19 +116,19 @@ describe("ActionBarComponent", () => {
 	});
 
 	describe("@Input() actionBarConfig", () => {
-		it("should not call the defined action when disabled", () => {
-			const menuItem: HTMLElement = hostFixture.nativeElement.querySelector(
-				`#${hostComponent.actionBarId}-${hostComponent.actionBarConfig.actions[0].id}`
+		it("should not call the defined action when disabled", async () => {
+			const buttonHarness: MatButtonHarness[] = await loader.getAllHarnesses(
+				MatButtonHarness.with({ selector: ".stark-action-bar-action" })
 			);
-			menuItem.click();
+			await buttonHarness[0].click();
 			expect(hostComponent.actionBarConfig.actions[0].actionCall).not.toHaveBeenCalled();
 		});
 
-		it("should call the defined action when enabled", () => {
-			const menuItem: HTMLElement = hostFixture.nativeElement.querySelector(
-				`#${hostComponent.actionBarId}-${hostComponent.actionBarConfig.actions[1].id}`
+		it("should not call the defined action when disabled", async () => {
+			const buttonHarness: MatButtonHarness[] = await loader.getAllHarnesses(
+				MatButtonHarness.with({ selector: ".stark-action-bar-action" })
 			);
-			menuItem.click();
+			await buttonHarness[1].click();
 			expect(hostComponent.actionBarConfig.actions[1].actionCall).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -132,29 +139,34 @@ describe("ActionBarComponent", () => {
 			hostFixture.detectChanges();
 		});
 
-		it("should display", () => {
-			const actionBar: HTMLElement = hostFixture.nativeElement.querySelector(".open-alt-actions");
-			expect(actionBar).toBeDefined();
+		it("should display", async () => {
+			const menuButton = await loader.getHarnessOrNull(MatButtonHarness.with({ selector: ".open-alt-actions" }));
+			expect(menuButton).not.toBeNull();
 		});
 	});
 
 	describe("toggle extended action bar", () => {
-		it("should toggle the action bar extension", () => {
+		it("should toggle the extended action bar", async () => {
 			hostComponent.mode = "full";
 			hostFixture.detectChanges();
 
-			const buttonToggleExtend: HTMLElement = hostFixture.nativeElement.querySelector(buttonToggleSelector);
 			spyOn(component, "toggleExtendedActionBar").and.callThrough();
-			buttonToggleExtend.click();
+
+			const buttonHarness = await loader.getHarness(
+				MatButtonHarness.with({
+					selector: ".extend-action-bar"
+				})
+			);
+
+			await buttonHarness.click();
 			hostFixture.detectChanges();
-
 			expect(component.toggleExtendedActionBar).toHaveBeenCalledTimes(1);
-			expect(component.isExtended).toBe(true);
-			buttonToggleExtend.click();
+			expect(component.isExtended).toBeTrue();
 
+			await buttonHarness.click();
 			hostFixture.detectChanges();
 			expect(component.toggleExtendedActionBar).toHaveBeenCalledTimes(2);
-			expect(component.isExtended).toBe(false);
+			expect(component.isExtended).toBeFalse();
 		});
 	});
 });

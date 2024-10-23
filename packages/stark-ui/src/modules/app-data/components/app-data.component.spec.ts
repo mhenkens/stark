@@ -1,21 +1,23 @@
-/* eslint-disable @angular-eslint/component-max-inline-declarations, @angular-eslint/no-lifecycle-call */
+import { Component, ViewChild } from "@angular/core";
 import { StarkAppDataComponent, StarkAppDataComponentMode } from "./app-data.component";
-import { STARK_LOGGING_SERVICE } from "@nationalbankbelgium/stark-core";
-import { fakeAsync, inject, tick, ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { HarnessLoader } from "@angular/cdk/testing";
+import { CommonModule } from "@angular/common";
 import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";
 import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
-import { CommonModule } from "@angular/common";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
-import { MockStarkLoggingService } from "@nationalbankbelgium/stark-core/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { ViewChild, Component } from "@angular/core";
-import { OverlayContainer } from "@angular/cdk/overlay";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { STARK_LOGGING_SERVICE } from "@nationalbankbelgium/stark-core";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
+import { StarkAppDataComponentHarness } from "./app-data.component.harness";
+import { MockStarkLoggingService } from "@nationalbankbelgium/stark-core/testing";
+import { MatLegacyMenuHarness } from "@angular/material/legacy-menu/testing";
 
 @Component({
-	selector: `host-component`,
+	selector: "host-component",
 	template: `
 		<stark-app-data [mode]="mode">
 			<div class="summary-slot">This is the summary</div>
@@ -33,15 +35,14 @@ describe("AppDataComponent", () => {
 	let component: StarkAppDataComponent;
 	let hostComponent: TestHostComponent;
 	let hostFixture: ComponentFixture<TestHostComponent>;
-
-	// Rendered menu context
-	let overlayContainer: OverlayContainer;
-	let overlayContainerElement: HTMLElement;
+	let loader: HarnessLoader;
 
 	const detailSlotContent = "This is the detail";
 	const summarySlotContent = "This is the summary";
 
 	const mockLogger: MockStarkLoggingService = new MockStarkLoggingService();
+
+	let starkAppDataHarness: StarkAppDataComponentHarness;
 
 	beforeEach(waitForAsync(() =>
 		TestBed.configureTestingModule({
@@ -59,18 +60,13 @@ describe("AppDataComponent", () => {
 			providers: [{ provide: STARK_LOGGING_SERVICE, useValue: mockLogger }, TranslateService]
 		}).compileComponents()));
 
-	beforeEach(() => {
-		// OverlayContainer needs to be injected to get the context for the rendered menu dropdown
-		inject([OverlayContainer], (oc: OverlayContainer) => {
-			overlayContainer = oc;
-			overlayContainerElement = overlayContainer.getContainerElement();
-		})();
-
+	beforeEach(async () => {
 		hostFixture = TestBed.createComponent(TestHostComponent);
 		hostComponent = hostFixture.componentInstance;
-		hostFixture.detectChanges();
-
 		component = hostComponent.appDataComponent;
+		loader = TestbedHarnessEnvironment.loader(hostFixture);
+		hostFixture.detectChanges();
+		starkAppDataHarness = await loader.getHarness(StarkAppDataComponentHarness);
 	});
 
 	describe("on initialization", () => {
@@ -85,116 +81,98 @@ describe("AppDataComponent", () => {
 	});
 
 	describe("using 'dropdown' mode", () => {
-		// Prepare hostComponent
-		beforeEach(() => {
+		beforeEach(async () => {
 			hostComponent.mode = "dropdown";
 			hostFixture.detectChanges();
 		});
 
+		it("dropdown div should be present", async () => {
+			expect(await starkAppDataHarness.isDropdownDivPresent()).toBeTrue();
+		});
+
+		it("menu div should NOT be present", async () => {
+			expect(await starkAppDataHarness.isMenuDivPresent()).toBeFalse();
+		});
+
 		describe("summary", () => {
-			it("should display the summary content", () => {
-				const summary: HTMLElement = hostFixture.nativeElement.querySelector(".stark-app-data-summary");
-				expect(summary).toBeDefined();
-				expect(summary.innerText).toContain(summarySlotContent);
+			it("should display the summary content", async () => {
+				expect(await starkAppDataHarness.isSummaryPresent()).toBeTrue();
+				expect(await starkAppDataHarness.getSummaryText()).toBe(summarySlotContent);
 			});
 		});
 
 		describe("detail", () => {
-			it("detail information should NOT be displayed on init", () => {
-				expect(overlayContainerElement.textContent).toBe("");
+			it("detail information should NOT be displayed on init", async () => {
+				const menu = await starkAppDataHarness.getDropdownHarness();
+				expect(menu).toBeDefined();
+				expect(menu).not.toBeNull();
+				expect(menu ? await menu.isOpen() : true).toBeFalse();
 			});
 
 			describe("open detail", () => {
-				beforeEach(() => {
-					// Open Detail
-					const button: HTMLButtonElement = hostFixture.nativeElement.querySelector(".stark-app-data.dropdown button");
-					button.click();
-					hostFixture.detectChanges();
+				let menu: MatLegacyMenuHarness;
+				beforeEach(async () => {
+					const m = await starkAppDataHarness.getDropdownHarness();
+					if (m) {
+						menu = m;
+					} else {
+						fail("Menu not found");
+					}
+					await menu.open();
 				});
 
-				it("clicking button should display detail information", () => {
-					expect(overlayContainerElement.textContent).toBe(detailSlotContent);
-					const matPanelElement = <HTMLElement>overlayContainerElement.querySelector(".mat-menu-panel");
-					expect(matPanelElement.classList).toContain("stark-app-data");
-					expect(matPanelElement.classList).toContain("dropdown-detail");
+				it("clicking button should display detail information", async () => {
+					expect(await menu.isOpen()).toBeTrue();
+					expect(await starkAppDataHarness.getDropdownDetailContentText()).toBe(detailSlotContent);
 				});
 
-				it("clicking outside the mat-menu-panel should close the detail", fakeAsync(() => {
-					const backdrop = <HTMLElement>overlayContainerElement.querySelector(".cdk-overlay-backdrop");
-					backdrop.click();
-					hostFixture.detectChanges();
-					tick(500);
-
-					expect(overlayContainerElement.textContent).toBe("");
-				}));
-
-				it("clicking inside the mat-menu-panel should NOT close the detail", fakeAsync(() => {
-					const detail = <HTMLElement>overlayContainerElement.querySelector(".stark-app-data-detail");
-					expect(detail).not.toBeNull();
-					detail.click();
-					hostFixture.detectChanges();
-					tick(500);
-
-					expect(overlayContainerElement.textContent).toBe(detailSlotContent);
-				}));
+				it("closing popup should hide the detail", async () => {
+					await menu.close();
+					expect(await menu.isOpen()).toBeFalse();
+					expect(await starkAppDataHarness.getDropdownDetailContentText()).not.toBeDefined();
+				});
 			});
 		});
 	});
 
 	describe("using 'menu' mode", () => {
-		// Prepare hostComponent
 		beforeEach(() => {
 			hostComponent.mode = "menu";
 			hostFixture.detectChanges();
 		});
 
+		it("dropdown div should NOT be present", async () => {
+			expect(await starkAppDataHarness.isDropdownDivPresent()).toBeFalse();
+		});
+
+		it("menu div should be present", async () => {
+			expect(await starkAppDataHarness.isMenuDivPresent()).toBeTrue();
+		});
+
 		describe("summary", () => {
-			it("should NOT display the summary content", () => {
-				const summary: HTMLElement | null = hostFixture.nativeElement.querySelector(".stark-app-data-summary");
-				expect(summary).toBeNull();
+			it("should NOT display the summary content", async () => {
+				expect(await starkAppDataHarness.getSummaryText()).toBeUndefined();
 			});
 		});
 
 		describe("detail", () => {
-			it("detail information should NOT be displayed on init", () => {
-				expect(overlayContainerElement.textContent).toBe("");
+			it("detail information should NOT be displayed on init", async () => {
+				expect(await starkAppDataHarness.getDropdownDetailContentText()).toBeUndefined();
 			});
 
 			describe("open detail", () => {
-				beforeEach(() => {
-					// Open Detail
-					const button: HTMLButtonElement = hostFixture.nativeElement.querySelector(".stark-app-data.menu button");
-					button.click();
-					hostFixture.detectChanges();
+				beforeEach(async () => {
+					await starkAppDataHarness.openDropdownDetail();
 				});
 
-				it("clicking button should display detail information", () => {
-					expect(overlayContainerElement.textContent).toBe(detailSlotContent);
-					const matPanelElement = <HTMLElement>overlayContainerElement.querySelector(".mat-menu-panel");
-					expect(matPanelElement.classList).toContain("stark-app-data");
-					expect(matPanelElement.classList).toContain("menu-detail");
+				it("should display detail information", async () => {
+					expect(await starkAppDataHarness.getDropdownDetailContentText()).toBe(detailSlotContent);
 				});
 
-				it("clicking outside the mat-menu-panel should close the detail", fakeAsync(() => {
-					const backdrop = <HTMLElement>overlayContainerElement.querySelector(".cdk-overlay-backdrop");
-					backdrop.click();
-					hostFixture.detectChanges();
-					tick(500);
-
-					expect(overlayContainerElement.textContent).toBe("");
-				}));
-
-				it("clicking inside the mat-menu-panel should NOT close the detail", fakeAsync(() => {
-					expect(overlayContainerElement.textContent).toBe(detailSlotContent);
-
-					const detail = <HTMLElement>overlayContainerElement.querySelector(".stark-app-data-detail");
-					expect(detail).not.toBeNull();
-					detail.click();
-					hostFixture.detectChanges();
-					tick(500);
-
-					expect(overlayContainerElement.textContent).toBe(detailSlotContent);
-				}));
+				it("when closed should hide the detail", async () => {
+					await starkAppDataHarness.closeDropdownDetail();
+					expect(await starkAppDataHarness.getDropdownDetailContentText()).toBeUndefined();
+				});
 			});
 		});
 	});

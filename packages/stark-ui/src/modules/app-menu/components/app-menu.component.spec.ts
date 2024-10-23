@@ -7,10 +7,15 @@ import { MatIconTestingModule } from "@angular/material/icon/testing";
 import { StarkAppMenuComponent } from "./app-menu.component";
 import { StarkAppMenuItemComponent } from "./app-menu-item.component";
 import { UIRouterModule } from "@uirouter/angular";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
+import { HarnessLoader } from "@angular/cdk/testing";
+import { StarkAppMenuComponentHarness } from "./app-menu.component.harness";
 
 describe("AppMenuComponent", () => {
 	let component: StarkAppMenuComponent;
 	let fixture: ComponentFixture<StarkAppMenuComponent>;
+	let loader: HarnessLoader;
+	let appMenuHarness: StarkAppMenuComponentHarness;
 
 	/**
 	 * async beforeEach
@@ -32,13 +37,15 @@ describe("AppMenuComponent", () => {
 	/**
 	 * Synchronous beforeEach
 	 */
-	beforeEach(() => {
+	beforeEach(async () => {
 		fixture = TestBed.createComponent(StarkAppMenuComponent);
 		component = fixture.componentInstance;
+		loader = TestbedHarnessEnvironment.loader(fixture);
+		appMenuHarness = await loader.getHarness(StarkAppMenuComponentHarness);
 	});
 
 	describe("sections", () => {
-		it("should have a section when menuSections property of menuConfig is set", () => {
+		it("should have a section when menuSections property of menuConfig is set", async () => {
 			component.menuConfig = {
 				menuSections: [
 					{
@@ -56,7 +63,8 @@ describe("AppMenuComponent", () => {
 				]
 			};
 			fixture.detectChanges();
-			const sectionTitle: HTMLElement = fixture.nativeElement.querySelector(".stark-section-title");
+			const sectionTitle = await appMenuHarness.getSectionTitle();
+			expect(sectionTitle).not.toBeNull();
 			expect(sectionTitle).toBeDefined();
 		});
 	});
