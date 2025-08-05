@@ -17,6 +17,8 @@
     color: mat.get-color-from-palette($primary-palette, 700);
   }
 
+  @include mat.core-theme($material-theme-config);
+  
   /*
   Angular Material body-1, body-2,... are to be used only for components
   In the body, a different font size is used

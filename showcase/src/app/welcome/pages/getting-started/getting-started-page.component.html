@@ -1,5 +1,5 @@
 <div class="getting-started-content">
-	<div class="mat-display-2">Getting started</div>
+	<div class="mat-headline-3">Getting started</div>
 
 	<table-of-contents headerSelectors=".custom-title,.custom-subtitle"></table-of-contents>
 
@@ -28,7 +28,7 @@
 		<h2 id="packages_installation" class="custom-subtitle">Packages installation</h2>
 
 		<p>To install the different packages of the Stark framework, for example, the stark-core package, just do:</p>
-		<span class="custom-code">npm install "@nationalbankbelgium/stark-core"</span>
+		<span class="custom-code">npm install "&#64;nationalbankbelgium/stark-core"</span>
 		<p>Those packages are available at the following locations in NPM:</p>
 		<ul>
 			<li>
@@ -170,15 +170,15 @@
 			</li>
 			<li>Don’t use functions in your providers, routes or declarations, export a function and then reference that function name</li>
 			<li>
-				@Inputs, @Outputs, View or Content Child(ren), Hostbindings, and any field you use from the template or annotate for Angular
-				should be public
+				&#64;Inputs, &#64;Outputs, View or Content Child(ren), Hostbindings, and any field you use from the template or annotate for
+				Angular should be public
 			</li>
 		</ul>
 
 		<h2 id="typedef" class="custom-subtitle">Type definitions</h2>
 		<p>
 			When including 3rd party modules you also need to include the type definition for the module. When you include a module that
-			doesn't include TypeScript type definitions inside of the module you can include external type definitions with @types
+			doesn't include TypeScript type definitions inside of the module you can include external type definitions with &#64;types
 		</p>
 		<stark-pretty-print [data]="installType" format="html" [enableHighlighting]="true"></stark-pretty-print>
 
