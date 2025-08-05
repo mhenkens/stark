@@ -3,7 +3,7 @@ import { Component, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";
 import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";

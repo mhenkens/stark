@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from "@angular/core
 import { CommonModule } from "@angular/common";
 import { MatLegacySnackBarModule as MatSnackBarModule } from "@angular/material/legacy-snack-bar";
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { TranslateModule } from "@ngx-translate/core";
 import {
 	STARK_TOAST_NOTIFICATION_OPTIONS,

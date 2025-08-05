@@ -5,7 +5,7 @@ import {
 	MatLegacySnackBar as MatSnackBar,
 	MatLegacySnackBarRef as MatSnackBarRef
 } from "@angular/material/legacy-snack-bar";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";
 import { TranslateModule } from "@ngx-translate/core";

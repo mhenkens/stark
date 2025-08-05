@@ -3,7 +3,7 @@ import { UIRouterModule } from "@uirouter/angular";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { EffectsModule } from "@ngrx/effects";
 import { CommonModule } from "@angular/common";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
 import { StarkLocale } from "@nationalbankbelgium/stark-core";
 import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
