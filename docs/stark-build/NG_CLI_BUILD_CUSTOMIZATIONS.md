@@ -245,6 +245,53 @@ If you desire to customize it, you can define it in the **baseHref** option of y
 }
 ```
 
+#### If you need to override `starkAppMetadata` or `starkAppConfig` depending on your target configuration you can extend `indexTransform`
+
+```text
+{
+    ...
+    "projects": {
+        "your-app": {
+            ...
+            "architect": {
+                "build": {
+                    ...
+                    "options": {
+                        ...
+                        "indexTransform": "./config/index-html.transform.js"  // default value: "./node_modules/@nationalbankbelgium/stark-build/config/index-html.transform.js"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+in your new index-html.transform
+
+```javascript
+"use strict";
+const starkIndexHtmlTransform = require("@nationalbankbelgium/stark-build/config/index-html.transform");
+
+const commonDataToOverride = {
+  starkAppConfig: {
+    // data to override in starkAppConfig
+  },
+  starkAppMetadata: {
+    // data to override in starkAppMetadata
+  }
+};
+
+module.exports = (targetOptions, indexHtml) => {
+  if (targetOptions.configuration === "config_name_where_override") {
+    return starkIndexHtmlTransform(targetOptions, indexHtml, commonDataToOverride);
+  } else {
+    // continue to use default options
+    return starkIndexHtmlTransform(targetOptions, indexHtml);
+  }
+};
+```
+
 #### [HtmlHeadElements](https://github.com/NationalBankBelgium/stark/blob/master/packages/stark-build/config/html-head-elements "HtmlHeadElements")
 
 This plugin appends head elements during the creation of _index.html_.
