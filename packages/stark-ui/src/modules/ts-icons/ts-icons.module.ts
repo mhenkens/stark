@@ -17,6 +17,7 @@ export class TsIconsModule {
 		});
 	}
 
+	// eslint-disable-next-line sonarjs/no-identical-functions
 	public static forRoot(mdiIcons: mdiIcon[]): ModuleWithProviders<TsIconsModule> {
 		return {
 			ngModule: TsIconsModule,
@@ -24,6 +25,7 @@ export class TsIconsModule {
 		};
 	}
 
+	// eslint-disable-next-line sonarjs/no-identical-functions
 	public static forChild(mdiIcons: mdiIcon[]): ModuleWithProviders<TsIconsModule> {
 		return {
 			ngModule: TsIconsModule,
