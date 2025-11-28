@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy } from "@angular/core";
 import { STARK_LOGGING_SERVICE, StarkLoggingService } from "@nationalbankbelgium/stark-core";
 import { StarkDateRangePickerEvent } from "@nationalbankbelgium/stark-ui";
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { MatLegacyCheckboxChange as MatCheckboxChange } from "@angular/material/legacy-checkbox";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 import { Subscription } from "rxjs";
 import { ReferenceLink } from "../../../shared/components";
 
