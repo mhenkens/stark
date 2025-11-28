@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { EffectsModule } from "@ngrx/effects";
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
-import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { StarkLocale } from "@nationalbankbelgium/stark-core";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";

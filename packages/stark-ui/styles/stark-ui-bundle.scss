@@ -76,10 +76,10 @@
     $material-theme-config: mat.define-light-theme(
       (
         color: (
-          primary: mat.define-palette(stark-mat-palette.$primary-palette),
-          accent: mat.define-palette(stark-mat-palette.$accent-palette),
-          warn: mat.define-palette(stark-mat-palette.$warning-palette)
-        ),
+            primary: mat.define-palette(stark-mat-palette.$primary-palette),
+            accent: mat.define-palette(stark-mat-palette.$accent-palette),
+            warn: mat.define-palette(stark-mat-palette.$warning-palette)
+          ),
         typography: stark-typography.$typography-config
       )
     );
@@ -87,11 +87,13 @@
 
   @include mat.all-legacy-component-themes($material-theme-config);
   @include mat.all-component-themes($material-theme-config);
+  @include mat.core();
+  @include mat.legacy-core();
 
   @if $stark-theme-config == null {
     $stark-theme-config: stark-palette.$stark-base-theme;
   }
-  
+
   /* Stark styles */
   @include stark-base.stark-base(
 

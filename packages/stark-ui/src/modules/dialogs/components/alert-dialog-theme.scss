@@ -10,13 +10,10 @@
   $alert-palette: map.get($stark-theme-config, alert-palette);
 
   .stark-alert-dialog {
-    [mat-dialog-title] {
-      color: mat.get-color-from-palette($alert-palette, 500);
-    }
-
-    .button-ok {
-      background-color: mat.get-color-from-palette($alert-palette, 500);
-      color: mat.get-contrast-color-from-palette($alert-palette, 500);
+    .mat-mdc-dialog-title {
+      &.mdc-dialog__title {
+        color: mat.get-color-from-palette($alert-palette, 500);
+      }
     }
   }
 }

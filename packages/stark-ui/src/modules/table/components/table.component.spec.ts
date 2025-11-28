@@ -8,7 +8,7 @@ import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-m
 import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
-import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";

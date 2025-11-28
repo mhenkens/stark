@@ -5,6 +5,6 @@
 
 <div mat-dialog-content>{{ content.textContent || "" | translate }}</div>
 
-<div mat-dialog-actions>
-	<button mat-raised-button (click)="onOk()" class="button-ok">{{ content.ok || "OK" | translate }}</button>
+<div mat-dialog-actions align="end">
+	<button mat-raised-button (click)="onOk()" class="button-ok" color="alert">{{ content.ok || "OK" | translate }}</button>
 </div>

@@ -2,7 +2,9 @@
 
 <div mat-dialog-content>{{ content.textContent || "" | translate }}</div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
 	<button mat-button class="button-cancel" (click)="onCancel()">{{ content.cancel || "CANCEL" | translate }}</button>
-	<button mat-raised-button class="button-ok" cdkFocusInitial (click)="onOk()">{{ content.ok || "OK" | translate }}</button>
+	<button mat-raised-button class="button-ok" cdkFocusInitial (click)="onOk()" color="primary">{{
+		content.ok || "OK" | translate
+	}}</button>
 </div>

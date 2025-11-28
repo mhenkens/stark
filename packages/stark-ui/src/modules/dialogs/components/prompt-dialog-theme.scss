@@ -7,12 +7,4 @@
 @use "@angular/material" as mat;
 
 @mixin stark-prompt-dialog-theme($material-theme-config, $stark-theme-config) {
-  $primary-palette: map.get($material-theme-config, primary);
-
-  .stark-prompt-dialog {
-    .button-ok {
-      background-color: mat.get-color-from-palette($primary-palette, 500);
-      color: mat.get-contrast-color-from-palette($primary-palette, 500);
-    }
-  }
 }
