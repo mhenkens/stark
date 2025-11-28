@@ -6,52 +6,52 @@ $stark-typography-theme: null !default;
 // https://material.angular.io/guide/typography
 $typography-theme: (
   font-family: "BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-  display-4: (
+  headline-1: (
     112px,
     112px,
     300
   ),
-  display-3: (
+  headline-2: (
     56px,
     56px,
     400
   ),
-  display-2: (
+  headline-3: (
     45px,
     48px,
     400
   ),
-  display-1: (
+  headline-4: (
     34px,
     40px,
     400
   ),
-  headline: (
+  headline-5: (
     24px,
     32px,
     400
   ),
-  title: (
+  headline-6: (
     20px,
     32px,
     500
   ),
-  subheading-2: (
+  subtitle-1: (
     16px,
     28px,
     400
   ),
-  subheading-1: (
+  subtitle-2: (
     15px,
     24px,
     400
   ),
-  body-2: (
+  body-1: (
     14px,
     24px,
     500
   ),
-  body-1: (
+  body-2: (
     14px,
     20px,
     400
@@ -65,11 +65,6 @@ $typography-theme: (
     14px,
     16px,
     500
-  ),
-  input: (
-    inherit,
-    1.125,
-    400
   )
 ) !default;
 
@@ -82,19 +77,18 @@ $typography-theme: (
 }
 
 //TO DO: Document correspondance with html tags
-$typography-config: mat.define-legacy-typography-config(
+$typography-config: mat.define-typography-config(
   $font-family: map.get($typography-theme, font-family),
-  $display-4: define-typography-level-from-list(map.get($typography-theme, display-4)),
-  $display-3: define-typography-level-from-list(map.get($typography-theme, display-3)),
-  $display-2: define-typography-level-from-list(map.get($typography-theme, display-2)),
-  $display-1: define-typography-level-from-list(map.get($typography-theme, display-1)),
-  $headline: define-typography-level-from-list(map.get($typography-theme, headline)),
-  $title: define-typography-level-from-list(map.get($typography-theme, title)),
-  $subheading-2: define-typography-level-from-list(map.get($typography-theme, subheading-2)),
-  $subheading-1: define-typography-level-from-list(map.get($typography-theme, subheading-1)),
-  $body-2: define-typography-level-from-list(map.get($typography-theme, body-2)),
+  $headline-1: define-typography-level-from-list(map.get($typography-theme, headline-1)),
+  $headline-2: define-typography-level-from-list(map.get($typography-theme, headline-2)),
+  $headline-3: define-typography-level-from-list(map.get($typography-theme, headline-3)),
+  $headline-4: define-typography-level-from-list(map.get($typography-theme, headline-4)),
+  $headline-5: define-typography-level-from-list(map.get($typography-theme, headline-5)),
+  $headline-6: define-typography-level-from-list(map.get($typography-theme, headline-6)),
+  $subtitle-1: define-typography-level-from-list(map.get($typography-theme, subtitle-1)),
+  $subtitle-2: define-typography-level-from-list(map.get($typography-theme, subtitle-2)),
   $body-1: define-typography-level-from-list(map.get($typography-theme, body-1)),
+  $body-2: define-typography-level-from-list(map.get($typography-theme, body-2)),
   $caption: define-typography-level-from-list(map.get($typography-theme, caption)),
-  $button: define-typography-level-from-list(map.get($typography-theme, button)),
-  $input: define-typography-level-from-list(map.get($typography-theme, input))
+  $button: define-typography-level-from-list(map.get($typography-theme, button))
 ) !default;

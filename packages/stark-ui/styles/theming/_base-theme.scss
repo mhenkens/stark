@@ -18,7 +18,7 @@
   }
 
   @include mat.core-theme($material-theme-config);
-  
+
   /*
   Angular Material body-1, body-2,... are to be used only for components
   In the body, a different font size is used
@@ -31,30 +31,30 @@
   }
 
   h1 {
-    font-size: mat.font-size($typography-config, headline);
-    font-weight: mat.font-weight($typography-config, headline);
-    line-height: mat.line-height($typography-config, headline);
+    font-size: mat.font-size($typography-config, headline-5);
+    font-weight: mat.font-weight($typography-config, headline-5);
+    line-height: mat.line-height($typography-config, headline-5);
     margin: 0 0 16px;
   }
 
   h2 {
-    font-size: mat.font-size($typography-config, title);
-    font-weight: mat.font-weight($typography-config, title);
-    line-height: mat.line-height($typography-config, title);
+    font-size: mat.font-size($typography-config, headline-6);
+    font-weight: mat.font-weight($typography-config, headline-6);
+    line-height: mat.line-height($typography-config, headline-6);
     margin: 0 0 16px;
   }
 
   h3 {
-    font-size: mat.font-size($typography-config, subheading-2);
-    font-weight: mat.font-weight($typography-config, subheading-2);
-    line-height: mat.line-height($typography-config, subheading-2);
+    font-size: mat.font-size($typography-config, subtitle-1);
+    font-weight: mat.font-weight($typography-config, subtitle-1);
+    line-height: mat.line-height($typography-config, subtitle-1);
     margin: 0 0 16px;
   }
 
   h4 {
-    font-size: mat.font-size($typography-config, subheading-1);
-    font-weight: mat.font-weight($typography-config, subheading-1);
-    line-height: mat.line-height($typography-config, subheading-1);
+    font-size: mat.font-size($typography-config, subtitle-2);
+    font-weight: mat.font-weight($typography-config, subtitle-2);
+    line-height: mat.line-height($typography-config, subtitle-2);
     margin: 0 0 16px;
   }
 }
