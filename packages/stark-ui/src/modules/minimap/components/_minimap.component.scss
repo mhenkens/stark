@@ -7,7 +7,7 @@
   .stark-minimap {
     display: flex;
 
-    button.mat-icon-button .mat-icon {
+    button.mat-mdc-icon-button .mat-icon {
       transition: transform 300ms linear;
 
       &.open {

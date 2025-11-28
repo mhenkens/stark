@@ -1,7 +1,5 @@
 @mixin stark-icon() {
   .mat-icon.stark-small-icon {
-    $small-icon-size: 18px;
-    height: $small-icon-size;
-    width: $small-icon-size;
+    --mdc-icon-button-icon-size: 18px
   }
 }

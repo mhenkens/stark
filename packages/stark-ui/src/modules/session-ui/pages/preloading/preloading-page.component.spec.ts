@@ -4,7 +4,7 @@ import { of, throwError } from "rxjs";
 import { TranslateModule } from "@ngx-translate/core";
 import { CommonModule } from "@angular/common";
 import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import {
 	STARK_LOGGING_SERVICE,
 	STARK_ROUTING_SERVICE,

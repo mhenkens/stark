@@ -8,7 +8,7 @@ import {
 	MatLegacyDialogModule as MatDialogModule,
 	MatLegacyDialogRef as MatDialogRef
 } from "@angular/material/legacy-dialog";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { STARK_SESSION_SERVICE, StarkSessionActions, StarkSessionService } from "@nationalbankbelgium/stark-core";
 import { MockStarkSessionService } from "@nationalbankbelgium/stark-core/testing";
