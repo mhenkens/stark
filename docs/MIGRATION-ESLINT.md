@@ -5,7 +5,7 @@
 If you are on Windows, please use Git Bash or WSL to execute commands.
 
 ```bash
-npx ng add @angular-eslint/schematics
+npx ng add @angular-eslint/schematics@12
 ```
 
 ## run the schematics
