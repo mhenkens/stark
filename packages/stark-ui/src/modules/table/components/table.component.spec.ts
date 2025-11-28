@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
 import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy-table";
-import { MatLegacyCheckboxModule as MatCheckboxModule } from "@angular/material/legacy-checkbox";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
 import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
 import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
