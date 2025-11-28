@@ -1,7 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA, ViewChild } from "@angular/core";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
+import { MatButtonModule } from "@angular/material/button";
 import { MatLegacyTabsModule as MatTabsModule } from "@angular/material/legacy-tabs";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
 import { HAMMER_LOADER } from "@angular/platform-browser";
