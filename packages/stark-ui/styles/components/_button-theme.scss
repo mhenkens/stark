@@ -38,9 +38,7 @@
   $success-palette: map.get($stark-theme-config, success-palette);
   $alert-palette: map.get($stark-theme-config, alert-palette);
   $grey-palette: map.get($stark-theme-config, grey-palette);
-  
-  
-  
+
   button {
     &.mat-success {
       @include stark-button-color(

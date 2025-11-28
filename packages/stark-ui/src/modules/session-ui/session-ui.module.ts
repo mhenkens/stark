@@ -6,7 +6,7 @@ import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
 import { StarkLocale } from "@nationalbankbelgium/stark-core";
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
+import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatLegacyListModule as MatListModule } from "@angular/material/legacy-list";
 import { StarkAppLogoModule } from "@nationalbankbelgium/stark-ui/src/modules/app-logo";
