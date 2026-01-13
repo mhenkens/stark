@@ -9,10 +9,10 @@ import { MatLegacyTableModule as MatTableModule } from "@angular/material/legacy
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
 import { MatDialogModule } from "@angular/material/dialog";
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
+import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatIconTestingModule } from "@angular/material/icon/testing";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatInputModule } from "@angular/material/input";
 import { By } from "@angular/platform-browser";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { STARK_LOGGING_SERVICE } from "@nationalbankbelgium/stark-core";

@@ -3,8 +3,11 @@
 @import "~normalize.css/normalize.css";
 
 @mixin stark-base() {
+  
+  
   html,
   body {
+    --mdc-filled-text-field-container-color: rgba(255,255,255,0);
     height: 100%;
   }
 

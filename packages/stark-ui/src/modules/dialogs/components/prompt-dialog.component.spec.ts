@@ -4,7 +4,7 @@ import { CommonModule } from "@angular/common";
 import { Component, ComponentFactoryResolver } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialog, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatInputModule } from "@angular/material/input";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayContainer } from "@angular/cdk/overlay";
 import { ESCAPE } from "@angular/cdk/keycodes";

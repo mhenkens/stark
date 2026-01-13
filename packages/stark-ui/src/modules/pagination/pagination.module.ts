@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
 import { MatLegacyPaginatorModule as MatPaginatorModule } from "@angular/material/legacy-paginator";

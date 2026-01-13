@@ -16,7 +16,7 @@
             },
             "indexTransform": "./node_modules/@nationalbankbelgium/stark-build/config/index-html.transform.js",
             "outputPath": "dist",
-            "allowedCommonJsDependencies": ["validator", "@nationalbankbelgium/stark-core"],
+            "allowedCommonJsDependencies": ["validator"],
             "index": "src/index.html",
             "main": "src/main.browser.ts",
             "tsConfig": "tsconfig.app.json",

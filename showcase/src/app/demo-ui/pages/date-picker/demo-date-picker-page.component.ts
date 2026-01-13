@@ -1,8 +1,9 @@
 import { Component, Inject, OnDestroy } from "@angular/core";
-import { UntypedFormControl, Validators } from "@angular/forms";
+import { FormControl, UntypedFormControl, Validators } from "@angular/forms";
 import { STARK_LOGGING_SERVICE, StarkLoggingService } from "@nationalbankbelgium/stark-core";
 import { StarkDatePickerFilter, StarkTimestampMaskConfig } from "@nationalbankbelgium/stark-ui";
 import { ReferenceLink } from "../../../shared/components";
+import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 
 const DAY_IN_MILLISECONDS = 86400000;
 
@@ -16,7 +17,7 @@ export class DemoDatePickerPageComponent implements OnDestroy {
 	public maxDate = new Date(Date.now() + 30 * DAY_IN_MILLISECONDS);
 
 	public ngModelDate = new Date();
-	public formControl = new UntypedFormControl(new Date(), Validators.required);
+	public formControl = new FormControl<Date>(new Date(), Validators.required);
 
 	public disabled = false;
 	public required = false;
@@ -39,7 +40,7 @@ export class DemoDatePickerPageComponent implements OnDestroy {
 		this.subscription.unsubscribe();
 	}
 
-	public onDateChanged(date?: Date): void {
+	public onDateChanged(date?: MatDatepickerInputEvent<Date, any> | null | Date): void {
 		this.logger.debug("Date changed: ", date);
 	}
 

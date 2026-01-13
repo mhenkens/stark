@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
+import { MatInputModule } from "@angular/material/input";
 import { MatLegacyMenuModule as MatMenuModule } from "@angular/material/legacy-menu";
 import { MatLegacyPaginatorModule as MatPaginatorModule } from "@angular/material/legacy-paginator";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";

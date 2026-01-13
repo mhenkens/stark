@@ -21,7 +21,7 @@ import { MatDatepicker, MatDatepickerInput, MatDatepickerInputEvent } from "@ang
 import moment from "moment";
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NgControl, ValidationErrors, Validator } from "@angular/forms";
 import { MAT_DATE_FORMATS, MatDateFormats } from "@angular/material/core";
-import { MatLegacyFormFieldControl as MatFormFieldControl } from "@angular/material/legacy-form-field";
+import { MatFormFieldControl } from "@angular/material/form-field";
 import { FocusMonitor, FocusOrigin } from "@angular/cdk/a11y";
 import { BooleanInput, coerceBooleanProperty } from "@angular/cdk/coercion";
 import { TranslateService } from "@ngx-translate/core";
@@ -746,7 +746,6 @@ export class StarkDatePickerComponent
 	public getTimestampMaskConfig(): StarkTimestampMaskConfig | undefined {
 		return this.inputMaskEnabled ? this.dateMaskConfig : undefined;
 	}
-
 	/**
 	 * Method triggered when the date-picker input is focused.
 	 * This method changes the displayed value to make the starkTimestampInput directive working and enables the directive.

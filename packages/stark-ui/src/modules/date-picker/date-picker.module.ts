@@ -3,25 +3,26 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MAT_DATE_FORMATS } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
-import { MomentDateModule } from "@angular/material-moment-adapter";
+import { MatInputModule } from "@angular/material/input";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { TranslateModule } from "@ngx-translate/core";
 import { STARK_DATE_FORMATS, StarkDatePickerComponent } from "./components";
 import { StarkInputMaskDirectivesModule } from "@nationalbankbelgium/stark-ui/src/modules/input-mask-directives";
+import { StarkMatDatepickerDatefilterDirective, StarkMatDatepickerMaskDirective } from "./directives";
 
 @NgModule({
-	declarations: [StarkDatePickerComponent],
+	declarations: [StarkDatePickerComponent, StarkMatDatepickerMaskDirective, StarkMatDatepickerDatefilterDirective],
 	imports: [
 		CommonModule,
 		MatDatepickerModule,
 		StarkInputMaskDirectivesModule,
 		MatInputModule,
-		MomentDateModule,
+		MatMomentDateModule,
 		FormsModule,
 		ReactiveFormsModule,
 		TranslateModule
 	],
-	exports: [StarkDatePickerComponent],
+	exports: [StarkDatePickerComponent, StarkMatDatepickerMaskDirective, StarkMatDatepickerDatefilterDirective],
 	/**
 	 * Since we import `MomentDateModule`, there is no default value for `MAT_DATE_FORMATS`.
 	 * This provider is really useful to set a default `MAT_DATE_FORMATS` configuration for the {@link StarkDatePickerComponent}.

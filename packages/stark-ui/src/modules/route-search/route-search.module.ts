@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from "@angular/material/legacy-autocomplete";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
-import { MatLegacyOptionModule as MatOptionModule } from "@angular/material/legacy-core";
-import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
+import { MatOptionModule } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
 import { MatLegacyTooltipModule as MatTooltipModule } from "@angular/material/legacy-tooltip";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { StarkLocale } from "@nationalbankbelgium/stark-core";

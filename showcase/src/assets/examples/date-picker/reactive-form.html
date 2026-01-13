@@ -1,21 +1,23 @@
 <mat-form-field>
-	<stark-date-picker
-		pickerId="picker-reactive-form"
-		pickerName="picker-reactive-form"
-		placeholder="Choose a date"
-		[min]="minDate"
-		[max]="maxDate"
-		dateMask
-		[formControl]="formControl"
-		required
+	<mat-label>{{ 'SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER' | translate }}</mat-label>
+	<input matInput
+		   [matDatepicker]="pickerReactiveForm"
+		   [min]="minDate"
+		   [max]="maxDate"
+		   [formControl]="formControl"
+		   required
+		   [starkDateMask]="maskConfig"
 	>
-	</stark-date-picker>
-	<mat-error>
-		<div *ngIf="formControl.hasError('required')">This is required</div>
-		<div *ngIf="formControl.hasError('matDatepickerMin')">Min date</div>
-		<div *ngIf="formControl.hasError('matDatepickerMax')">Max date</div>
-	</mat-error>
+	<mat-hint>{{ maskConfig.format }}</mat-hint>
+	<mat-datepicker-toggle matIconSuffix [for]="pickerReactiveForm"></mat-datepicker-toggle>
+	<mat-datepicker #pickerReactiveForm></mat-datepicker>
+	<mat-error *ngIf="formControl.hasError('required')">This is required</mat-error>
+	<mat-error *ngIf="formControl.hasError('matDatepickerMin')">Min date</mat-error>
+	<mat-error *ngIf="formControl.hasError('matDatepickerMax')">Max date</mat-error>
 </mat-form-field>
+
 <div>
-	<mat-checkbox (change)="toggleFormControlState(formControl)" [checked]="formControl.disabled">Disabled</mat-checkbox>
+	<mat-checkbox (change)="toggleFormControlState(formControl)" [checked]="formControl.disabled">
+		{{ "SHOWCASE.COMMON.DISABLED" | translate }}
+	</mat-checkbox>
 </div>

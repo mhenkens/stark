@@ -9,21 +9,22 @@
 		exampleTitle="SHOWCASE.DEMO.DATE_PICKER.REACTIVE_FORM"
 	>
 		<mat-form-field>
-			<stark-date-picker
-				pickerId="picker-reactive-form"
-				pickerName="picker-reactive-form"
-				placeholder="SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER"
-				[min]="minDate"
-				[max]="maxDate"
-				dateMask
-				[formControl]="formControl"
-				required
-			></stark-date-picker>
-			<mat-error>
-				<div *ngIf="formControl.hasError('required')">This is required</div>
-				<div *ngIf="formControl.hasError('matDatepickerMin')">Min date</div>
-				<div *ngIf="formControl.hasError('matDatepickerMax')">Max date</div>
-			</mat-error>
+			<mat-label>{{ 'SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER' | translate }}</mat-label>
+			<input id="picker-reactive-form"
+				   matInput
+				   [matDatepicker]="pickerReactiveForm"
+				   [min]="minDate"
+				   [max]="maxDate"
+				   [formControl]="formControl"
+				   required
+				   [starkDateMask]="maskConfig"
+			>
+			<mat-hint>{{ maskConfig.format }}</mat-hint>
+			<mat-datepicker-toggle matIconSuffix [for]="pickerReactiveForm"></mat-datepicker-toggle>
+			<mat-datepicker #pickerReactiveForm></mat-datepicker>
+			<mat-error *ngIf="formControl.hasError('required')">This is required</mat-error>
+			<mat-error *ngIf="formControl.hasError('matDatepickerMin')">Min date</mat-error>
+			<mat-error *ngIf="formControl.hasError('matDatepickerMax')">Max date</mat-error>
 		</mat-form-field>
 
 		<div>
@@ -40,6 +41,26 @@
 		exampleTitle="SHOWCASE.DEMO.DATE_PICKER.NG_MODEL"
 	>
 		<mat-form-field>
+			<mat-label>{{ 'SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER' | translate }}</mat-label>
+			<input matInput
+				id="picker-ng-model"
+				name="picker-ng-model"
+				[matDatepicker]="datepickerNgModel"
+				[(ngModel)]="ngModelDate"
+				[min]="minDate"
+				[max]="maxDate"
+				#pickerNgModel="ngModel" 
+				required
+				[starkDateMask]="maskConfig"
+				(dateChange)="onDateChanged($event)"   
+			>
+			<mat-hint>{{ maskConfig.format }}</mat-hint>
+			<mat-datepicker #datepickerNgModel></mat-datepicker>
+			<mat-datepicker-toggle matIconSuffix [for]="datepickerNgModel"></mat-datepicker-toggle>
+			<mat-error *ngIf="pickerNgModel.errors && pickerNgModel.errors['required']">This is required</mat-error>
+			<mat-error *ngIf="pickerNgModel.errors && pickerNgModel.errors['matDatepickerMin']">Min date</mat-error>
+			<mat-error *ngIf="pickerNgModel.errors && pickerNgModel.errors['matDatepickerMax']">Max date</mat-error>
+			<!-- 
 			<stark-date-picker
 				pickerId="picker-ng-model"
 				pickerName="picker-ng-model"
@@ -58,6 +79,7 @@
 				<div *ngIf="pickerNgModel.errors && pickerNgModel.errors['matDatepickerMin']">Min date</div>
 				<div *ngIf="pickerNgModel.errors && pickerNgModel.errors['matDatepickerMax']">Max date</div>
 			</mat-error>
+			-->
 		</mat-form-field>
 		<div>
 			<mat-checkbox (change)="disabled = !disabled" [checked]="disabled">
@@ -73,17 +95,22 @@
 		exampleTitle="SHOWCASE.DEMO.DATE_PICKER.ONLY_WEEKENDS"
 	>
 		<mat-form-field>
-			<stark-date-picker
-				pickerId="picker-only-weekends"
-				pickerName="only-weekends"
-				[value]="currentDate"
-				[dateFilter]="'OnlyWeekends'"
-				placeholder="SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER"
-				[min]="minDate"
-				[max]="maxDate"
-				[required]="required"
-				(dateChange)="onDateChanged($event)"
-			></stark-date-picker>
+			<mat-label>{{ "SHOWCASE.DEMO.DATE_PICKER.PLACEHOLDER" | translate }}</mat-label>
+			<input matInput
+				   id="picker-ng-model"
+				   name="picker-ng-model"
+				   [value]="currentDate"
+				   [min]="minDate"
+				   [max]="maxDate"
+				   required
+				   [starkDateMask]="maskConfig"
+				   (dateChange)="onDateChanged($event)"
+				   [matDatepicker]="datepickerOnlyWeekend"
+				   starkDatePickerFilter="OnlyWeekends" 
+			>
+			<mat-hint>{{ maskConfig.format }}</mat-hint>
+			<mat-datepicker #datepickerOnlyWeekend></mat-datepicker>
+			<mat-datepicker-toggle matIconSuffix [for]="datepickerOnlyWeekend"></mat-datepicker-toggle>
 		</mat-form-field>
 	</example-viewer>
 
