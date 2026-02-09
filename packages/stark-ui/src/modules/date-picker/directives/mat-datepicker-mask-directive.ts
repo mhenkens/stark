@@ -32,7 +32,16 @@ export const DEFAULT_DATE_MASK_CONFIG_DIRECTIVE: StarkTimestampMaskConfig = { fo
 		"(compositionstart)": "_compositionStart()",
 		"(compositionend)": "_compositionEnd($event.target.value)"
 	},
-	selector: "input [matInput][matDatepicker][" + directiveName + "]",
+	selector:
+		"input [matInput][matDatepicker][" +
+		directiveName +
+		"]," +
+		"input [matStartDate][" +
+		directiveName +
+		"]," +
+		"input [matEndDate][" +
+		directiveName +
+		"]",
 	exportAs: "starkDateMask"
 })
 export class StarkMatDatepickerMaskDirective extends StarkTimestampMaskDirective {

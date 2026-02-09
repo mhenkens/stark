@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Directive, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { MatDatepickerInput } from "@angular/material/datepicker";
+import * as moment from "moment";
 
 const directiveName = "starkDatePickerFilter";
 
@@ -9,13 +10,7 @@ export type StarkDatePickerFilter = "OnlyWeekends" | "OnlyWeekdays" | ((date: Da
 	selector: "input [matInput][matDatepicker][" + directiveName + "]"
 })
 export class StarkMatDatepickerDatefilterDirective implements OnChanges {
-	public constructor(
-		public host: ElementRef,
-		public matDateInput: MatDatepickerInput<any>
-	) {
-		console.log(host);
-		console.log(matDateInput);
-	}
+	public constructor(public matDateInput: MatDatepickerInput<any>) {}
 
 	@Input()
 	public starkDatePickerFilter?: StarkDatePickerFilter;
@@ -34,11 +29,24 @@ export class StarkMatDatepickerDatefilterDirective implements OnChanges {
 				} else {
 					this.dateFilterfn = this.starkDatePickerFilter;
 				}
-				this.matDateInput.dateFilter = this.dateFilterfn;
+				this.matDateInput.dateFilter = this.callDateFilterFn.bind(this);
 			} else {
 				this.matDateInput.dateFilter = (_date: Date): boolean => true;
 			}
 		}
+	}
+
+	private callDateFilterFn(date: Date | moment.Moment): boolean {
+		if (this.dateFilterfn) {
+			if (date instanceof Date) {
+				return this.dateFilterfn(date);
+			}
+			if (moment.isMoment(date)) {
+				return this.dateFilterfn(date.toDate());
+			}
+			return true;
+		}
+		return true;
 	}
 
 	/**
