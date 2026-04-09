@@ -13,7 +13,6 @@ import { TranslateModule } from "@ngx-translate/core";
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
 import { STARK_DATE_FORMATS } from "../components/date-format.constants";
 import { By } from "@angular/platform-browser";
-import { Moment } from "moment/moment";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
 @Component({
@@ -28,7 +27,7 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 	`
 })
 class TestHostComponent {
-	public formControl = new FormControl<Moment>(moment());
+	public formControl = new FormControl<moment.Moment>(moment());
 }
 
 describe("MatDatepickerMaskDirective", () => {
@@ -56,7 +55,7 @@ describe("MatDatepickerMaskDirective", () => {
 	describe("FormControl", () => {
 		let hostComponent: TestHostComponent;
 		let hostFixture: ComponentFixture<TestHostComponent>;
-		let dateAdapter: DateAdapter<Moment>;
+		let dateAdapter: DateAdapter<moment.Moment>;
 
 		beforeEach(() => {
 			hostFixture = TestBed.createComponent(TestHostComponent);
@@ -71,8 +70,8 @@ describe("MatDatepickerMaskDirective", () => {
 			hostFixture.detectChanges();
 
 			const formFieldDebugElement = hostFixture.debugElement.query(By.directive(MatFormField));
-
-			expect(formFieldDebugElement.nativeElement.value).toBe(dateAdapter.format(now, STARK_DATE_FORMATS));
+			const expectedDateFormat = dateAdapter.format(now, STARK_DATE_FORMATS);
+			expect(formFieldDebugElement.nativeElement.value).toBe(expectedDateFormat);
 		});
 	});
 });

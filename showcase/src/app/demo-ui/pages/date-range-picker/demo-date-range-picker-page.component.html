@@ -9,20 +9,29 @@
 		exampleTitle="SHOWCASE.DEMO.DATE_RANGE_PICKER.WITH_MODEL"
 	>
 		<mat-form-field>
-			<mat-date-range-input [rangePicker]="rangePickerNgmodel" [disabled]="modelDisabled">
+			<mat-date-range-input
+				[rangePicker]="rangePickerNgmodel"
+				[disabled]="modelDisabled"
+				[required]="true"
+				#rangeInput
+				[min]="today"
+				[max]="inOneMonth"
+				[(ngModel)]="dateRangeModel"
+				starkDatePickerFilter="OnlyWeekdays">
 				<input
 					matStartDate
-					[min]="today"
-					[max]="inOneMonth"
-					[(ngModel)]="dateRangeModel.startDate"
 					starkDateMask
 					starkDateRangePikerPlaceHolder
 				/>
-				<input matEndDate [min]="today" [max]="inOneMonth" [(ngModel)]="dateRangeModel.endDate" starkDateMask />
+				<input matEndDate [min]="today" [max]="inOneMonth" starkDateMask starkDateRangePikerPlaceHolder
+					   />
 			</mat-date-range-input>
 			<mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
 			<mat-datepicker-toggle matIconSuffix [for]="rangePickerNgmodel"></mat-datepicker-toggle>
 			<mat-date-range-picker #rangePickerNgmodel> </mat-date-range-picker>
+			<mat-error *ngFor="let error of getErrorMessages(rangeInput); trackBy: trackItemFn">
+				{{ error | translate }}
+			</mat-error>
 		</mat-form-field>
 		<!-- <stark-date-range-picker
 			[(ngModel)]="dateRangeModel"

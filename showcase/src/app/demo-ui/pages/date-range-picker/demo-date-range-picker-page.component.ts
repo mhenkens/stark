@@ -6,6 +6,7 @@ import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { Subscription } from "rxjs";
 import { ReferenceLink } from "../../../shared/components";
+import { MatDateRangeInput } from "@angular/material/datepicker";
 
 const MONTH_IN_MILLI = 2592000000;
 
@@ -22,7 +23,7 @@ export class DemoDateRangePickerPageComponent implements OnDestroy {
 	public today = new Date();
 	public inOneMonth = new Date(this.today.getTime() + MONTH_IN_MILLI);
 
-	public dateRangeModel = { startDate: this.today, endDate: this.inOneMonth };
+	public dateRangeModel = { start: this.today, end: this.inOneMonth };
 	public modelDisabled = false;
 
 	// IMPORTANT: if the DateRangePicker should be required, then add the 'required' validator to both form controls too!
@@ -59,11 +60,17 @@ export class DemoDateRangePickerPageComponent implements OnDestroy {
 		}
 	}
 
-	public getErrorMessages(control?: AbstractControl): string[] {
+	// eslint-disable-next-line sonarjs/cognitive-complexity
+	public getErrorMessages(control?: MatDateRangeInput<any> | AbstractControl): string[] {
 		const errors: string[] = [];
-
-		if (control && control.errors) {
-			for (const key of Object.keys(control.errors)) {
+		let errorsObject: ValidationErrors | null = null;
+		if (control instanceof MatDateRangeInput) {
+			errorsObject = control.errorState ? (control.ngControl ? control.ngControl.errors : { errors: "error" }) : null;
+		} else {
+			errorsObject = control && control.errors ? control.errors : null;
+		}
+		if (errorsObject) {
+			for (const key of Object.keys(errorsObject)) {
 				switch (key) {
 					case "required":
 						errors.push("SHOWCASE.DEMO.DATE_RANGE_PICKER.ERROR_MESSAGES.REQUIRED");

@@ -10,12 +10,16 @@ import { translationsNl } from "./assets/translations/nl";
 import { mergeUiTranslations } from "@nationalbankbelgium/stark-ui/src/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { StarkDateRangePickerStartPlaceholder } from "./directives";
+import { StarkDateRangePickerEndPlaceholderDirective, StarkDateRangePickerStartPlaceholderDirective } from "./directives";
 
 @NgModule({
-	declarations: [StarkDateRangePickerComponent, StarkDateRangePickerStartPlaceholder],
+	declarations: [
+		StarkDateRangePickerComponent,
+		StarkDateRangePickerEndPlaceholderDirective,
+		StarkDateRangePickerStartPlaceholderDirective
+	],
 	imports: [CommonModule, StarkDatePickerModule, FormsModule, MatFormFieldModule, ReactiveFormsModule, TranslateModule],
-	exports: [StarkDateRangePickerComponent, StarkDateRangePickerStartPlaceholder]
+	exports: [StarkDateRangePickerComponent, StarkDateRangePickerEndPlaceholderDirective, StarkDateRangePickerStartPlaceholderDirective]
 })
 export class StarkDateRangePickerModule {
 	/**

@@ -1,5 +1,5 @@
-import { Directive, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { MatDatepickerInput } from "@angular/material/datepicker";
+import { Directive, Input, OnChanges, Optional, SimpleChanges } from "@angular/core";
+import { MatDatepickerInput, MatDateRangeInput } from "@angular/material/datepicker";
 import * as moment from "moment";
 
 const directiveName = "starkDatePickerFilter";
@@ -7,10 +7,24 @@ const directiveName = "starkDatePickerFilter";
 export type StarkDatePickerFilter = "OnlyWeekends" | "OnlyWeekdays" | ((date: Date) => boolean);
 
 @Directive({
-	selector: "input [matInput][matDatepicker][" + directiveName + "]"
+	selector: "input [matInput][matDatepicker][" + directiveName + "]," + "mat-date-range-input [" + directiveName + "]",
+	exportAs: "starkDatePickerFilter"
 })
 export class StarkMatDatepickerDatefilterDirective implements OnChanges {
-	public constructor(public matDateInput: MatDatepickerInput<any>) {}
+	private input: MatDatepickerInput<any> | MatDateRangeInput<any>;
+
+	public constructor(
+		@Optional() public matDateInput: MatDatepickerInput<any>,
+		@Optional() public matDateRangeInput: MatDateRangeInput<any>
+	) {
+		if (!matDateInput && !matDateRangeInput) {
+			throw new Error(`The directive ${directiveName} must be used on an element with matDateInput or matDateRangeInput directive`);
+		} else if (matDateInput) {
+			this.input = matDateInput;
+		} else {
+			this.input = matDateRangeInput;
+		}
+	}
 
 	@Input()
 	public starkDatePickerFilter?: StarkDatePickerFilter;
@@ -19,6 +33,7 @@ export class StarkMatDatepickerDatefilterDirective implements OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges): void {
 		if (changes["starkDatePickerFilter"]) {
+			console.log(changes["starkDatePickerFilter"]);
 			if (this.starkDatePickerFilter !== undefined) {
 				if (this.starkDatePickerFilter === "OnlyWeekdays") {
 					// eslint-disable-next-line @typescript-eslint/unbound-method
@@ -29,9 +44,9 @@ export class StarkMatDatepickerDatefilterDirective implements OnChanges {
 				} else {
 					this.dateFilterfn = this.starkDatePickerFilter;
 				}
-				this.matDateInput.dateFilter = this.callDateFilterFn.bind(this);
+				this.input.dateFilter = this.callDateFilterFn.bind(this);
 			} else {
-				this.matDateInput.dateFilter = (_date: Date): boolean => true;
+				this.input.dateFilter = (_date: Date): boolean => true;
 			}
 		}
 	}

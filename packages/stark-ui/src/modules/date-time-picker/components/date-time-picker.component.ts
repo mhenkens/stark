@@ -512,7 +512,6 @@ export class StarkDateTimePickerComponent
 	 * @param _fm - The Angular Material Focus Monitor service
 	 * @param elementRef - Reference to the DOM element where this component is attached to.
 	 * @param renderer - Angular `Renderer2` wrapper for DOM manipulations.
-	 * @param matFormField - The parent MatFormField directive surrounding this component
 	 * @param injector - The Injector of the application
 	 * @param cdRef - Reference to the change detector attached to this component
 	 * @param translateService - The `TranslateService` instance of the application.
