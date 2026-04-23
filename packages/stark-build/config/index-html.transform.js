@@ -1,5 +1,5 @@
 const helpers = require("./helpers");
-const fs = require("fs");
+const fs = require("node:fs");
 const commonData = require("./common-data.js"); // common configuration between environments
 const HtmlHeadElements = require("./html-head-elements");
 const getMetadata = require("./webpack-metadata").getMetadata;
@@ -19,10 +19,17 @@ let METADATA;
 ```
  *
  * @param indexHtml
+ * @param commonDataToOverride
  * @returns {string}
  */
-function replacePlaceholdersByValues(indexHtml) {
+function replacePlaceholdersByValues(indexHtml, commonDataToOverride) {
 	const regex = /(?:<|&lt;)%=\s+starkOptions\.(starkAppMetadata|starkAppConfig|metadata)\.(\w+)\s+%(?:>|&gt;)/g;
+
+	const effectiveCommonData = structuredClone(commonData);
+	if (commonDataToOverride) {
+		effectiveCommonData["starkAppMetadata"] = { ...commonData.starkAppMetadata, ...commonDataToOverride.starkAppMetadata };
+		effectiveCommonData["starkAppConfig"] = { ...commonData.starkAppConfig, ...commonDataToOverride.starkAppConfig };
+	}
 
 	const getRealValue = (placeholder, ...args) => {
 		const configName = args[0];
@@ -33,7 +40,7 @@ function replacePlaceholdersByValues(indexHtml) {
 		if (configName === "metadata") {
 			value = METADATA[property];
 		} else {
-			value = commonData[configName][property];
+			value = effectiveCommonData[configName][property];
 		}
 
 		if (value) {
@@ -43,10 +50,10 @@ function replacePlaceholdersByValues(indexHtml) {
 		return placeholder;
 	};
 
-	return indexHtml.replace(regex, getRealValue);
+	return indexHtml.replaceAll(regex, getRealValue);
 }
 
-module.exports = (targetOptions, indexHtml) => {
+module.exports = function transformIndexHtml(targetOptions, indexHtml, commonDataToOverride) {
 	let indexHtmlToReturn = indexHtml;
 
 	METADATA = getMetadata(targetOptions.project);
@@ -66,5 +73,5 @@ module.exports = (targetOptions, indexHtml) => {
 	    ${indexHtml.slice(i)}`;
 	}
 
-	return replacePlaceholdersByValues(indexHtmlToReturn);
+	return replacePlaceholdersByValues(indexHtmlToReturn, commonDataToOverride);
 };
