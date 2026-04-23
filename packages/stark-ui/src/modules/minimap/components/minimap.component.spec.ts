@@ -97,7 +97,7 @@ describe("MinimapComponent", () => {
 			hostFixture.detectChanges();
 
 			menuElement = overlayContainerElement.querySelector(".mat-menu-panel");
-			menuItemLabels = overlayContainerElement.querySelectorAll(".mat-menu-panel .mat-menu-content .mat-menu-item label");
+			menuItemLabels = overlayContainerElement.querySelectorAll(" .mat-menu-panel .mat-menu-content .mat-menu-item ");
 		});
 
 		it("clicking button should open menu", () => {
@@ -116,7 +116,8 @@ describe("MinimapComponent", () => {
 		it("correct items should be checked", () => {
 			expect(menuItemLabels.length).toBe(items.length);
 			menuItemLabels.forEach((labelElement: HTMLLabelElement) => {
-				const textContainer: HTMLElement | null = labelElement.querySelector(".mat-checkbox-label");
+				// const checkBoxElement: HTMLInputElement | null = labelElement.querySelector(".mat-mdc-checkbox");
+				const textContainer: HTMLElement | null = labelElement.querySelector(".mat-mdc-checkbox .mdc-form-field label");
 				expect(textContainer).withContext("mat-checkbox-label should exist").toBeTruthy();
 				const text: string = ((textContainer && textContainer.textContent) || "").trim();
 
@@ -190,20 +191,24 @@ describe("MinimapComponent", () => {
 			button.click();
 			hostFixture.detectChanges();
 
-			menuItemLabels = overlayContainerElement.querySelectorAll(" .mat-menu-panel .mat-menu-content .mat-menu-item label");
+			menuItemLabels = overlayContainerElement.querySelectorAll(" .mat-menu-panel .mat-menu-content .mat-menu-item ");
 		});
 
 		it("event should be triggered with correct item for each label click", () => {
 			expect(menuItemLabels.length).toBe(items.length);
 
 			menuItemLabels.forEach((labelElement: HTMLLabelElement) => {
-				const textContainer: HTMLElement | null = labelElement.querySelector(".mat-checkbox-label");
-				expect(textContainer).withContext("mat-checkbox-label should exist").toBeTruthy();
+				const checkBoxElement: HTMLInputElement | null = labelElement.querySelector(".mat-mdc-checkbox");
+				const textContainer: HTMLElement | null = labelElement.querySelector(".mat-mdc-checkbox .mdc-form-field label");
+				expect(textContainer).withContext("mdc-label should exist").toBeTruthy();
 				const text: string = ((textContainer && textContainer.textContent) || "").trim();
 				const expectedItem: StarkMinimapItemProperties | undefined = items.find(
 					({ label }: StarkMinimapItemProperties) => label === text
 				);
-				labelElement.click();
+				expect(checkBoxElement).toBeDefined();
+				if (checkBoxElement) {
+					checkBoxElement.click();
+				}
 				expect(expectedItem).toBeDefined();
 				expect(hostComponent.onShowHideItem).toHaveBeenCalledWith(<StarkMinimapItemProperties>expectedItem);
 			});

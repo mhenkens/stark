@@ -12,7 +12,9 @@ export class StarkDateRangePickerStartPlaceholderDirective implements OnChanges,
 	public constructor(
 		private translateService: TranslateService,
 		private hostComponent: ElementRef<HTMLInputElement>
-	) {}
+	) {
+		console.debug("StarkDateRangePickerStartPlaceholderDirective starkDateRangePickerStartPlaceholder");
+	}
 
 	@Input()
 	public starkDateRangePikerPlaceHolder: StarkDateRangePickerStartPlaceholderType = STARK_DATE_RANGE_PICKER_START_PLACEHOLDER_DEFAULT;
