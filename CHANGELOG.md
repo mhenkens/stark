@@ -1,3 +1,18 @@
+## [12.0.3](https://github.com/nationalbankbelgium/stark/compare/12.0.2...12.0.3) (2026-04-30)
+
+
+### Bug Fixes
+
+* **docs:** error in command to install `@angular-eslint/schematics` ([5975b19](https://github.com/nationalbankbelgium/stark/commit/5975b19b564cd7afe7593111fa209ccdfbc89dd8))
+* **showcase:** fix error when navigate from home-page to getting started ([1baf17c](https://github.com/nationalbankbelgium/stark/commit/1baf17ccf9bf4921b75b5dc07959f272f8035ee7)), closes [#4044](https://github.com/nationalbankbelgium/stark/issues/4044)
+
+
+### Features
+
+* **stark-build:** add support to extend index-html.transform.js ([0b025fd](https://github.com/nationalbankbelgium/stark/commit/0b025fdd48fe9f34b4be2258cca3445e462c8370)), closes [#4055](https://github.com/nationalbankbelgium/stark/issues/4055)
+
+
+
 ## [12.0.2](https://github.com/nationalbankbelgium/stark/compare/12.0.1...12.0.2) (2025-07-04)
 
 
